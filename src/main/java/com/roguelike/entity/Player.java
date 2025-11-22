@@ -5,20 +5,41 @@ import com.roguelike.item.Inventory;
 import com.roguelike.item.Item;
 import java.awt.Color;
 
+/**
+ * Spieler-Charakter mit Inventar, Level-System und Equipment.
+ * Erbt von Entity und fügt Erfahrung, Leveling und Ausrüstung hinzu.
+ */
 public class Player extends Entity {
+    /** Inventar des Spielers */
     private Inventory inventory;
+
+    /** Aktuelles Level des Spielers */
     private int level;
+
+    /** Aktuelle Erfahrungspunkte */
     private int experience;
+
+    /** Erfahrungspunkte bis zum nächsten Level */
     private int experienceToLevel;
 
-    // Equipment slots
+    /** Ausgerüstete Waffe (kann null sein) */
     private Item equippedWeapon;
+
+    /** Ausgerüstete Rüstung (kann null sein) */
     private Item equippedArmor;
 
-    // Base stats (without equipment)
+    /** Basis-Angriffswert ohne Equipment */
     private int baseAttack;
+
+    /** Basis-Verteidigungswert ohne Equipment */
     private int baseDefense;
 
+    /**
+     * Konstruktor - erstellt einen neuen Spieler.
+     * Startwerte: Level 1, 30 HP, 5 ATK, 2 DEF
+     *
+     * @param position Startposition auf der Karte
+     */
     public Player(Position position) {
         super(position, '@', Color.YELLOW, "Player", 30, 5, 2, true);
         this.inventory = new Inventory(20);
@@ -31,10 +52,15 @@ public class Player extends Entity {
         this.equippedArmor = null;
     }
 
+    /**
+     * Update-Methode - wird nicht verwendet, da der Spieler durch Input gesteuert wird.
+     */
     @Override
     public void update() {
-        // Player is controlled by input, not AI
+        // Spieler wird durch Tastatureingaben gesteuert, nicht durch KI
     }
+
+    // Getter-Methoden
 
     public Inventory getInventory() {
         return inventory;
@@ -48,6 +74,12 @@ public class Player extends Entity {
         return experience;
     }
 
+    /**
+     * Erhöht die Erfahrung des Spielers.
+     * Löst automatisch einen Level-Up aus, wenn genug Erfahrung gesammelt wurde.
+     *
+     * @param amount Menge der hinzuzufügenden Erfahrung
+     */
     public void gainExperience(int amount) {
         experience += amount;
         if (experience >= experienceToLevel) {
@@ -55,27 +87,42 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Erhöht das Level des Spielers.
+     * Verbessert alle Stats und heilt den Spieler vollständig.
+     * Erfahrungsanforderung steigt um 50% pro Level.
+     */
     private void levelUp() {
         level++;
         experience -= experienceToLevel;
         experienceToLevel = (int) (experienceToLevel * 1.5);
 
+        // Erhöhe Stats
         maxHp += 5;
-        hp = maxHp;
+        hp = maxHp; // Volle Heilung beim Level-Up
         baseAttack += 1;
         baseDefense += 1;
-        updateStats();
+        updateStats(); // Aktualisiere Gesamt-Stats mit Equipment
     }
 
     public int getExperienceToLevel() {
         return experienceToLevel;
     }
 
-    // Equipment methods
+    // Equipment-Methoden
+
+    /**
+     * Rüstet ein Item aus.
+     * Tauscht automatisch vorhandenes Equipment des gleichen Typs aus.
+     *
+     * @param item Das auszurüstende Item
+     * @return true wenn erfolgreich, false bei Fehler
+     */
     public boolean equipItem(Item item) {
         if (item == null) return false;
 
         if (item.getType() == Item.ItemType.WEAPON) {
+            // Tausche alte Waffe gegen neue
             if (equippedWeapon != null) {
                 inventory.addItem(equippedWeapon);
             }
@@ -83,6 +130,7 @@ public class Player extends Entity {
             updateStats();
             return true;
         } else if (item.getType() == Item.ItemType.ARMOR) {
+            // Tausche alte Rüstung gegen neue
             if (equippedArmor != null) {
                 inventory.addItem(equippedArmor);
             }
@@ -93,6 +141,11 @@ public class Player extends Entity {
         return false;
     }
 
+    /**
+     * Legt die Waffe ab und legt sie ins Inventar.
+     *
+     * @return true wenn erfolgreich, false wenn Inventar voll
+     */
     public boolean unequipWeapon() {
         if (equippedWeapon != null && !inventory.isFull()) {
             inventory.addItem(equippedWeapon);
@@ -103,6 +156,11 @@ public class Player extends Entity {
         return false;
     }
 
+    /**
+     * Legt die Rüstung ab und legt sie ins Inventar.
+     *
+     * @return true wenn erfolgreich, false wenn Inventar voll
+     */
     public boolean unequipArmor() {
         if (equippedArmor != null && !inventory.isFull()) {
             inventory.addItem(equippedArmor);
@@ -113,10 +171,15 @@ public class Player extends Entity {
         return false;
     }
 
+    /**
+     * Aktualisiert die Gesamt-Stats basierend auf Basis-Werten und Equipment.
+     * Wird automatisch aufgerufen beim Ausrüsten/Ablegen von Items.
+     */
     private void updateStats() {
         attack = baseAttack;
         defense = baseDefense;
 
+        // Addiere Equipment-Boni
         if (equippedWeapon != null) {
             attack += equippedWeapon.getValue();
         }
