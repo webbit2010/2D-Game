@@ -43,31 +43,19 @@ java -jar target/java-roguelike-1.0-SNAPSHOT.jar
 ## Steuerung
 
 ### Bewegung
-Du kannst dich auf drei verschiedene Arten bewegen:
-
-**Pfeiltasten**: Standard-Bewegung in 4 Richtungen
-- ↑ ↓ ← → : Bewege dich in die entsprechende Richtung
-
-**Numpad**: Bewegung in 8 Richtungen (empfohlen!)
-```
-7 8 9
-4   6
-1 2 3
-```
-
-**Vi-Tasten**: Für Roguelike-Puristen
-```
-y k u
-h   l
-b j n
-```
+- **W** - Nach oben bewegen
+- **A** - Nach links bewegen
+- **S** - Nach unten bewegen
+- **D** - Nach rechts bewegen
+- **Pfeiltasten** - Alternative Bewegungssteuerung (↑ ↓ ← →)
 
 ### Aktionen
-- **g** - Item aufheben
+- **E** - Item aufheben
+- **R** - Treppe hinabsteigen
+- **H** - Hilfe anzeigen
 - **1-9** - Item aus Inventar benutzen (Nummer entspricht Position im Inventar)
-- **>** (Shift + .) - Treppe hinabsteigen
-- **?** (Shift + /) - Hilfe anzeigen
-- **r** - Neues Spiel starten (im Game Over Bildschirm)
+- **ENTER** - Neues Spiel starten (im Hauptmenü)
+- **R** - Neues Spiel starten (im Game Over Bildschirm)
 
 ## Gameplay
 

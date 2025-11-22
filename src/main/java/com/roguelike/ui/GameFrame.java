@@ -57,85 +57,45 @@ public class GameFrame extends JFrame {
         }
 
         switch (e.getKeyCode()) {
-            // Movement - Arrow keys
+            // Movement - WASD
+            case KeyEvent.VK_W:
+                game.movePlayer(0, -1);
+                break;
+            case KeyEvent.VK_A:
+                game.movePlayer(-1, 0);
+                break;
+            case KeyEvent.VK_S:
+                game.movePlayer(0, 1);
+                break;
+            case KeyEvent.VK_D:
+                game.movePlayer(1, 0);
+                break;
+
+            // Movement - Arrow keys (alternative)
             case KeyEvent.VK_UP:
-            case KeyEvent.VK_KP_UP:
                 game.movePlayer(0, -1);
                 break;
             case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_KP_DOWN:
                 game.movePlayer(0, 1);
                 break;
             case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_KP_LEFT:
                 game.movePlayer(-1, 0);
                 break;
             case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_KP_RIGHT:
                 game.movePlayer(1, 0);
-                break;
-
-            // Movement - Numpad
-            case KeyEvent.VK_NUMPAD7:
-                game.movePlayer(-1, -1);
-                break;
-            case KeyEvent.VK_NUMPAD8:
-                game.movePlayer(0, -1);
-                break;
-            case KeyEvent.VK_NUMPAD9:
-                game.movePlayer(1, -1);
-                break;
-            case KeyEvent.VK_NUMPAD4:
-                game.movePlayer(-1, 0);
-                break;
-            case KeyEvent.VK_NUMPAD6:
-                game.movePlayer(1, 0);
-                break;
-            case KeyEvent.VK_NUMPAD1:
-                game.movePlayer(-1, 1);
-                break;
-            case KeyEvent.VK_NUMPAD2:
-                game.movePlayer(0, 1);
-                break;
-            case KeyEvent.VK_NUMPAD3:
-                game.movePlayer(1, 1);
-                break;
-
-            // Movement - Vi keys
-            case KeyEvent.VK_H:
-                game.movePlayer(-1, 0);
-                break;
-            case KeyEvent.VK_J:
-                game.movePlayer(0, 1);
-                break;
-            case KeyEvent.VK_K:
-                game.movePlayer(0, -1);
-                break;
-            case KeyEvent.VK_L:
-                game.movePlayer(1, 0);
-                break;
-            case KeyEvent.VK_Y:
-                game.movePlayer(-1, -1);
-                break;
-            case KeyEvent.VK_U:
-                game.movePlayer(1, -1);
-                break;
-            case KeyEvent.VK_B:
-                game.movePlayer(-1, 1);
-                break;
-            case KeyEvent.VK_N:
-                game.movePlayer(1, 1);
                 break;
 
             // Actions
-            case KeyEvent.VK_G:
+            case KeyEvent.VK_E:
                 game.pickupItem();
                 break;
 
-            case KeyEvent.VK_PERIOD:
-                if (e.isShiftDown()) { // Shift+. = >
-                    game.descendStairs();
-                }
+            case KeyEvent.VK_R:
+                game.descendStairs();
+                break;
+
+            case KeyEvent.VK_H:
+                showHelp();
                 break;
 
             // Inventory usage (1-9)
@@ -166,25 +126,22 @@ public class GameFrame extends JFrame {
             case KeyEvent.VK_9:
                 game.useItem(8);
                 break;
-
-            // Help
-            case KeyEvent.VK_SLASH:
-                if (e.isShiftDown()) { // Shift+/ = ?
-                    showHelp();
-                }
-                break;
         }
     }
 
     private void showHelp() {
         String help = "=== CONTROLS ===\n\n" +
                 "Movement:\n" +
-                "  Arrow keys, Numpad, or Vi keys (hjkl/yubn)\n\n" +
+                "  W - Move up\n" +
+                "  A - Move left\n" +
+                "  S - Move down\n" +
+                "  D - Move right\n" +
+                "  (Arrow keys also work)\n\n" +
                 "Actions:\n" +
-                "  g - Pick up item\n" +
-                "  1-9 - Use item from inventory\n" +
-                "  > - Descend stairs\n" +
-                "  ? - Show this help\n\n" +
+                "  E - Pick up item\n" +
+                "  R - Descend stairs\n" +
+                "  H - Show this help\n" +
+                "  1-9 - Use item from inventory\n\n" +
                 "Goal:\n" +
                 "  Explore the dungeon, defeat monsters,\n" +
                 "  collect items, and descend deeper!\n\n" +

@@ -33,7 +33,7 @@ public class Game {
     public void startNewGame() {
         gameState = GameState.PLAYER_TURN;
         dungeonLevel = 1;
-        messageLog.addMessage("Welcome to the dungeon! Press '?' for help.", MessageLog.MessageType.IMPORTANT);
+        messageLog.addMessage("Welcome to the dungeon! Press 'H' for help.", MessageLog.MessageType.IMPORTANT);
 
         generateLevel();
     }
@@ -86,14 +86,14 @@ public class Game {
 
             // Check for stairs
             if (gameMap.getTile(newPos.x, newPos.y).getCharacter() == '>') {
-                messageLog.addMessage("You see stairs leading down. Press '>' to descend.",
+                messageLog.addMessage("You see stairs leading down. Press 'R' to descend.",
                         MessageLog.MessageType.INFO);
             }
 
             // Check for items
             Item item = gameMap.getItemAt(newPos);
             if (item != null) {
-                messageLog.addMessage("You see " + item.getName() + " here. Press 'g' to pick it up.",
+                messageLog.addMessage("You see " + item.getName() + " here. Press 'E' to pick it up.",
                         MessageLog.MessageType.INFO);
             }
 
