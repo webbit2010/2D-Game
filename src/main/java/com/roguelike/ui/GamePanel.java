@@ -204,9 +204,34 @@ public class GamePanel extends JPanel {
         // Experience
         g.drawString("EXP: " + player.getExperience() + "/" +
                 player.getExperienceToLevel(), sidebarX, y);
-        y += TILE_SIZE * 3;
+        y += TILE_SIZE * 2;
+
+        // Equipment
+        g.drawString("=== EQUIPMENT ===", sidebarX, y);
+        y += TILE_SIZE;
+
+        Item weapon = player.getEquippedWeapon();
+        if (weapon != null) {
+            g.setColor(weapon.getColor());
+            g.drawString("Weapon: " + weapon.getName(), sidebarX, y);
+        } else {
+            g.setColor(Color.GRAY);
+            g.drawString("Weapon: None", sidebarX, y);
+        }
+        y += TILE_SIZE;
+
+        Item armor = player.getEquippedArmor();
+        if (armor != null) {
+            g.setColor(armor.getColor());
+            g.drawString("Armor: " + armor.getName(), sidebarX, y);
+        } else {
+            g.setColor(Color.GRAY);
+            g.drawString("Armor: None", sidebarX, y);
+        }
+        y += TILE_SIZE * 2;
 
         // Inventory
+        g.setColor(Color.WHITE);
         g.drawString("=== INVENTORY ===", sidebarX, y);
         y += TILE_SIZE;
 

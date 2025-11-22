@@ -69,9 +69,16 @@ Erkunde den prozedural generierten Dungeon, besiege Monster, sammle Items und st
 - Besiege Monster, um Erfahrungspunkte zu erhalten
 
 ### Items
-- **Heiltränke (!)**: Stellen Trefferpunkte wieder her
-- **Schwerter (/)**: Erhöhen deinen Angriffswert (noch nicht implementiert)
-- **Schilde ([)**: Erhöhen deine Verteidigung (noch nicht implementiert)
+- **Heiltränke (!)**: Stellen Trefferpunkte wieder her (sofortige Wirkung)
+- **Schwerter (/)**: Erhöhen deinen Angriffswert (+3 ATK wenn ausgerüstet)
+- **Schilde ([)**: Erhöhen deine Verteidigung (+2 DEF wenn ausgerüstet)
+
+### Equipment-System
+- Sammle Waffen und Rüstungen im Dungeon
+- Benutze eine Waffe oder Rüstung aus deinem Inventar (Taste 1-9), um sie auszurüsten
+- Wenn du bereits ein Item desselben Typs ausgerüstet hast, wird es automatisch gegen das neue ausgetauscht
+- Das alte Equipment wird zurück ins Inventar gelegt
+- Deine aktuellen Stats werden sofort aktualisiert und in der Sidebar angezeigt
 
 ### Level-System
 - Sammle Erfahrungspunkte durch das Besiegen von Monstern
@@ -126,10 +133,10 @@ src/main/java/com/roguelike/
 - **FOV-System**: Raycast-basierte Sichtfeld-Berechnung
 - **Pathfinding**: Einfache direkte Verfolgung für Monster-AI
 - **Combat**: Angriff vs. Verteidigung mit Zufallsvarianz
+- **Equipment**: Vollständiges Ausrüstungssystem mit Waffen und Rüstungen
 
 ## Mögliche Erweiterungen
 
-- Ausrüstungssystem (Waffen und Rüstungen anlegbar)
 - Magiesystem mit Sprüchen
 - Mehr Monster-Typen mit verschiedenen AI-Verhaltensweisen
 - Verbessertes Pathfinding (A* Algorithmus)

@@ -135,10 +135,26 @@ public class Game {
                     endPlayerTurn();
                     break;
                 case WEAPON:
-                    messageLog.addMessage("You can't use that yet!", MessageLog.MessageType.INFO);
+                    player.getInventory().removeItem(item);
+                    if (player.equipItem(item)) {
+                        messageLog.addMessage(String.format("You equip the %s! (+%d ATK)",
+                                item.getName(), item.getValue()), MessageLog.MessageType.INFO);
+                        endPlayerTurn();
+                    } else {
+                        player.getInventory().addItem(item);
+                        messageLog.addMessage("Failed to equip weapon!", MessageLog.MessageType.IMPORTANT);
+                    }
                     break;
                 case ARMOR:
-                    messageLog.addMessage("You can't use that yet!", MessageLog.MessageType.INFO);
+                    player.getInventory().removeItem(item);
+                    if (player.equipItem(item)) {
+                        messageLog.addMessage(String.format("You equip the %s! (+%d DEF)",
+                                item.getName(), item.getValue()), MessageLog.MessageType.INFO);
+                        endPlayerTurn();
+                    } else {
+                        player.getInventory().addItem(item);
+                        messageLog.addMessage("Failed to equip armor!", MessageLog.MessageType.IMPORTANT);
+                    }
                     break;
             }
         }
