@@ -22,7 +22,6 @@ mvnw.cmd
 # IDE
 .idea/
 *.iml
-.vscode/
 .classpath
 .project
 .settings/
