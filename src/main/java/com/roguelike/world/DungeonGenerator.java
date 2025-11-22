@@ -5,21 +5,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Generator für prozedurale Dungeon-Erzeugung.
+ * Erstellt zufällige Räume und verbindet sie mit Korridoren.
+ */
 public class DungeonGenerator {
+    /** Maximale Raumgröße */
     private static final int ROOM_MAX_SIZE = 10;
+
+    /** Minimale Raumgröße */
     private static final int ROOM_MIN_SIZE = 6;
+
+    /** Maximale Anzahl von Räumen pro Dungeon */
     private static final int MAX_ROOMS = 30;
 
+    /** Zufallsgenerator für Dungeon-Erzeugung */
     private Random random;
 
+    /**
+     * Erstellt einen neuen DungeonGenerator mit festem Seed.
+     *
+     * @param seed Seed für reproduzierbare Dungeons
+     */
     public DungeonGenerator(long seed) {
         this.random = new Random(seed);
     }
 
+    /**
+     * Erstellt einen neuen DungeonGenerator mit zufälligem Seed.
+     * Nutzt aktuelle Systemzeit als Seed.
+     */
     public DungeonGenerator() {
         this(System.currentTimeMillis());
     }
 
+    /**
+     * Generiert einen neuen Dungeon mit Räumen und Korridoren.
+     * Platziert Treppe nach unten im letzten Raum.
+     *
+     * @param width Breite des Dungeons
+     * @param height Höhe des Dungeons
+     * @return Neue GameMap mit generiertem Dungeon
+     */
     public GameMap generateDungeon(int width, int height) {
         Tile[][] tiles = new Tile[width][height];
 
@@ -77,6 +104,13 @@ public class DungeonGenerator {
         return new GameMap(tiles, rooms);
     }
 
+    /**
+     * Erstellt einen einzelnen Raum im Tile-Array.
+     * Füllt den inneren Bereich des Raums mit Boden-Tiles.
+     *
+     * @param tiles Das Tile-Array
+     * @param room Der zu erstellende Raum
+     */
     private void createRoom(Tile[][] tiles, Room room) {
         for (int x = room.getX1() + 1; x < room.getX2(); x++) {
             for (int y = room.getY1() + 1; y < room.getY2(); y++) {
@@ -85,6 +119,15 @@ public class DungeonGenerator {
         }
     }
 
+    /**
+     * Erstellt einen horizontalen Korridor.
+     * Verbindet zwei Punkte auf derselben Y-Koordinate.
+     *
+     * @param tiles Das Tile-Array
+     * @param x1 Start X-Position
+     * @param x2 End X-Position
+     * @param y Y-Position des Korridors
+     */
     private void createHTunnel(Tile[][] tiles, int x1, int x2, int y) {
         for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
             if (x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length) {
@@ -93,6 +136,15 @@ public class DungeonGenerator {
         }
     }
 
+    /**
+     * Erstellt einen vertikalen Korridor.
+     * Verbindet zwei Punkte auf derselben X-Koordinate.
+     *
+     * @param tiles Das Tile-Array
+     * @param y1 Start Y-Position
+     * @param y2 End Y-Position
+     * @param x X-Position des Korridors
+     */
     private void createVTunnel(Tile[][] tiles, int y1, int y2, int x) {
         for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
             if (x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length) {

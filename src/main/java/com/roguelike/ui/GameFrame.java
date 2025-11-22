@@ -7,10 +7,21 @@ import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Hauptfenster des Spiels.
+ * Verwaltet das Swing-Fenster und die Tastatureingaben.
+ */
 public class GameFrame extends JFrame {
+    /** Die Spiel-Instanz */
     private final Game game;
+
+    /** Das Panel, das das Spiel rendert */
     private GamePanel gamePanel;
 
+    /**
+     * Erstellt ein neues GameFrame.
+     * Initialisiert das Spiel, setzt das Fenster auf und registriert Tastatur-Listener.
+     */
     public GameFrame() {
         game = new Game();
         gamePanel = new GamePanel(game);
@@ -35,6 +46,12 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Verarbeitet Tastatureingaben basierend auf dem aktuellen Spielzustand.
+     * Unterstützt WASD und Pfeiltasten für Bewegung, E für Aufheben, R für Treppe, etc.
+     *
+     * @param e Das KeyEvent
+     */
     private void handleInput(KeyEvent e) {
         GameState state = game.getGameState();
 
@@ -129,6 +146,9 @@ public class GameFrame extends JFrame {
         }
     }
 
+    /**
+     * Zeigt einen Hilfe-Dialog mit allen Steuerungstasten und Spielinformationen.
+     */
     private void showHelp() {
         String help = "=== CONTROLS ===\n\n" +
                 "Movement:\n" +

@@ -14,16 +14,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Render-Panel für das Spiel.
+ * Zeichnet Karte, Entities, Items, UI-Elemente und Nachrichten.
+ */
 public class GamePanel extends JPanel {
+    /** Größe eines einzelnen Tiles in Pixeln */
     private static final int TILE_SIZE = 12;
+
+    /** Breite des Karten-Viewports in Tiles */
     private static final int MAP_VIEW_WIDTH = 80;
+
+    /** Höhe des Karten-Viewports in Tiles */
     private static final int MAP_VIEW_HEIGHT = 45;
+
+    /** Breite der Seitenleiste in Tiles */
     private static final int SIDEBAR_WIDTH = 30;
+
+    /** Höhe des Nachrichten-Bereichs in Tiles */
     private static final int MESSAGE_HEIGHT = 10;
 
+    /** Die Spiel-Instanz zum Rendern */
     private final Game game;
+
+    /** Monospace-Font für Tile-Rendering */
     private final Font gameFont;
 
+    /**
+     * Erstellt ein neues GamePanel.
+     *
+     * @param game Die Spiel-Instanz
+     */
     public GamePanel(Game game) {
         this.game = game;
         this.gameFont = new Font("Courier New", Font.PLAIN, TILE_SIZE);
@@ -34,6 +55,11 @@ public class GamePanel extends JPanel {
         setBackground(Color.BLACK);
     }
 
+    /**
+     * Zeichnet das Panel basierend auf dem aktuellen Spielzustand.
+     *
+     * @param g Graphics-Kontext
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -56,6 +82,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Zeichnet das Hauptmenü.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawMainMenu(Graphics2D g) {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
@@ -70,6 +101,11 @@ public class GamePanel extends JPanel {
         g.drawString(start, (getWidth() - startWidth) / 2, getHeight() / 2 + 20);
     }
 
+    /**
+     * Zeichnet den Game Over Screen.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawGameOver(Graphics2D g) {
         g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -88,6 +124,11 @@ public class GamePanel extends JPanel {
         g.drawString(restart, (getWidth() - restartWidth) / 2, getHeight() / 2 + 20);
     }
 
+    /**
+     * Zeichnet das Spiel (Karte, Entities, Items, UI).
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawGame(Graphics2D g) {
         drawMap(g);
         drawEntities(g);
@@ -96,6 +137,12 @@ public class GamePanel extends JPanel {
         drawMessages(g);
     }
 
+    /**
+     * Zeichnet die Dungeon-Karte mit FOV und Fog of War.
+     * Zentriert die Kamera auf den Spieler.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawMap(Graphics2D g) {
         GameMap map = game.getGameMap();
         Player player = game.getPlayer();
@@ -124,6 +171,12 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Zeichnet alle Entities (Gegner und Spieler).
+     * Nur sichtbare Entities werden gerendert.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawEntities(Graphics2D g) {
         GameMap map = game.getGameMap();
         Player player = game.getPlayer();
@@ -150,6 +203,12 @@ public class GamePanel extends JPanel {
         g.drawString(String.valueOf(player.getCharacter()), screenX, screenY + TILE_SIZE);
     }
 
+    /**
+     * Zeichnet alle Items auf der Karte.
+     * Nur sichtbare Items werden gerendert.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawItems(Graphics2D g) {
         GameMap map = game.getGameMap();
         Player player = game.getPlayer();
@@ -169,6 +228,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Zeichnet die Seitenleiste mit Status, Stats, Ausrüstung und Inventar.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawSidebar(Graphics2D g) {
         int sidebarX = MAP_VIEW_WIDTH * TILE_SIZE;
         int y = TILE_SIZE;
@@ -255,6 +319,12 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Zeichnet den Nachrichten-Log am unteren Bildschirmrand.
+     * Zeigt die letzten 8 Nachrichten mit farblicher Kennzeichnung.
+     *
+     * @param g Graphics-Kontext
+     */
     private void drawMessages(Graphics2D g) {
         int messageY = MAP_VIEW_HEIGHT * TILE_SIZE + TILE_SIZE;
         int x = TILE_SIZE;
