@@ -1,23 +1,24 @@
 package com.roguelike.world;
 
-import com.roguelike.engine.Position;
-import com.roguelike.entity.Enemy;
-import com.roguelike.entity.Entity;
-import com.roguelike.item.Item;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import com.roguelike.engine.Position;
+import com.roguelike.entity.Enemy;
+import com.roguelike.entity.Entity;
+import com.roguelike.item.Item;
+
 public class GameMap {
-    private Tile[][] tiles;
-    private boolean[][] explored;
-    private boolean[][] visible;
-    private List<Entity> entities;
-    private List<Item> items;
-    private List<Room> rooms;
-    private int width;
-    private int height;
+    private final Tile[][] tiles;
+    private final boolean[][] explored;
+    private final boolean[][] visible;
+    private final List<Entity> entities;
+    private final List<Item> items;
+    private final List<Room> rooms;
+    private final int width;
+    private final int height;
 
     public GameMap(Tile[][] tiles, List<Room> rooms) {
         this.tiles = tiles;

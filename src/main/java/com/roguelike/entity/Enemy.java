@@ -1,13 +1,13 @@
 package com.roguelike.entity;
 
 import com.roguelike.engine.Position;
-import com.roguelike.world.GameMap;
+
 import java.awt.Color;
 import java.util.Random;
 
 public class Enemy extends Entity {
     private static final Random random = new Random();
-    private int expValue;
+    private final int expValue;
     private AI ai;
 
     public Enemy(Position position, String name, char character, Color color,

@@ -8,7 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GameFrame extends JFrame {
-    private Game game;
+    private final Game game;
     private GamePanel gamePanel;
 
     public GameFrame() {

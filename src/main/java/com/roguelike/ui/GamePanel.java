@@ -1,7 +1,6 @@
 package com.roguelike.ui;
 
 import com.roguelike.engine.Game;
-import com.roguelike.engine.GameState;
 import com.roguelike.engine.Position;
 import com.roguelike.entity.Entity;
 import com.roguelike.entity.Player;
@@ -11,6 +10,7 @@ import com.roguelike.world.GameMap;
 import com.roguelike.world.Tile;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class GamePanel extends JPanel {
     private static final int SIDEBAR_WIDTH = 30;
     private static final int MESSAGE_HEIGHT = 10;
 
-    private Game game;
-    private Font gameFont;
+    private final Game game;
+    private final Font gameFont;
 
     public GamePanel(Game game) {
         this.game = game;
@@ -40,13 +40,19 @@ public class GamePanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setFont(gameFont);
 
-        if (game.getGameState() == GameState.MAIN_MENU) {
-            drawMainMenu(g2d);
-        } else if (game.getGameState() == GameState.GAME_OVER) {
+        if (null == game.getGameState()) {
             drawGame(g2d);
-            drawGameOver(g2d);
-        } else {
-            drawGame(g2d);
+        } else switch (game.getGameState()) {
+            case MAIN_MENU:
+                drawMainMenu(g2d);
+                break;
+            case GAME_OVER:
+                drawGame(g2d);
+                drawGameOver(g2d);
+                break;
+            default:
+                drawGame(g2d);
+                break;
         }
     }
 

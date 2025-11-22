@@ -1,10 +1,11 @@
 package com.roguelike.world;
 
-import com.roguelike.engine.Position;
 import java.util.Random;
 
+import com.roguelike.engine.Position;
+
 public class Room {
-    private int x1, y1, x2, y2;
+    private final int x1, y1, x2, y2;
 
     public Room(int x, int y, int width, int height) {
         this.x1 = x;
